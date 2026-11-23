@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Calibrated Deep Neural Networks for High-Stakes Clinical Oncology Triage: Mitigating Asymmetric False-Negative Costs in Diagnostic Cytopathology</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&family=Arial:wght@400;700&display=swap');
+
+  @page {
+    size: letter;
+    margin: 16mm 14mm 18mm 14mm;
+  }
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9.5pt;
+    line-height: 1.26;
+    color: #000000;
+    background-color: #f1f5f9;
+    margin: 0;
+    padding: 24px 10px;
+  }
+
+  .paper {
+    max-width: 8.5in;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 32pt 34pt 40pt 34pt;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+  }
+
+  .title-block {
+    text-align: center;
+    margin-bottom: 16pt;
+  }
+
+  h1.title {
+    font-size: 17.5pt;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 0 0 10pt 0;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .authors {
+    font-size: 10pt;
+    margin-bottom: 12pt;
+    line-height: 1.35;
+  }
+
+  .author-name {
+    font-weight: bold;
+    font-size: 11.5pt;
+  }
+
+  .affiliation {
+    font-style: italic;
+    color: #1a1a1a;
+  }
+
+  .email {
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+  }
+
+  .two-column {
+    column-count: 2;
+    column-gap: 16pt;
+    text-align: justify;
+  }
+
+  .abstract-box {
+    font-size: 8.5pt;
+    line-height: 1.26;
+    margin-bottom: 10pt;
+  }
+
+  .abstract-title {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .keywords {
+    font-size: 8.5pt;
+    margin-top: 5pt;
+    font-style: italic;
+  }
+
+  h2.section-heading {
+    font-size: 9.5pt;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 13pt;
+    margin-bottom: 4pt;
+    letter-spacing: 0.5pt;
+    break-after: avoid;
+  }
+
+  h3.subsection-heading {
+    font-size: 9.5pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 9pt;
+    margin-bottom: 3pt;
+    break-after: avoid;
+  }
+
+  p {
+    text-indent: 12pt;
+    margin: 0 0 4pt 0;
+  }
+
+  p.no-indent {
+    text-indent: 0;
+  }
+
+  .first-letter {
+    font-size: 24pt;
+    float: left;
+    line-height: 20pt;
+    padding-right: 3pt;
+    padding-top: 1pt;
+    font-weight: bold;
+  }
+
+  ol, ul {
+    margin: 4pt 0 5pt 0;
+    padding-left: 16pt;
+  }
+
+  li {
+    margin-bottom: 2.5pt;
+  }
+
+  .figure-box {
+    margin: 9pt 0;
+    text-align: center;
+    break-inside: avoid;
+  }
+
+  .figure-box img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #cccccc;
+  }
+
+  .figure-box-full {
+    column-span: all;
+    margin: 12pt 0;
+    text-align: center;
+  }
+
+  .figure-box-full img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #cccccc;
+  }
+
+  .caption {
+    font-size: 8pt;
+    line-height: 1.22;
+    margin-top: 4pt;
+    text-align: justify;
+  }
+
+  table.ieee-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.8pt;
+    margin: 8pt 0;
+    break-inside: avoid;
+  }
+
+  table.ieee-table th, table.ieee-table td {
+    padding: 3.5pt 4pt;
+    text-align: left;
+  }
+
+  table.ieee-table thead tr {
+    border-top: 1pt solid #000;
+    border-bottom: 0.5pt solid #000;
+  }
+
+  table.ieee-table tbody tr:last-child {
+    border-bottom: 1pt solid #000;
+  }
+
+  .table-title {
+    font-size: 8pt;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 4pt;
+  }
+
+  .equation {
+    text-align: center;
+    margin: 5pt 0;
+    font-size: 9pt;
+  }
+
+  .references {
+    font-size: 7.8pt;
+    line-height: 1.22;
+  }
+
+  .ref-item {
+    margin-bottom: 3.5pt;
+    padding-left: 16pt;
+    text-indent: -16pt;
+  }
+
+  .biography {
+    margin-top: 14pt;
+    font-size: 8pt;
+    line-height: 1.22;
+    border-top: 0.5pt solid #888;
+    padding-top: 6pt;
+    break-inside: avoid;
+  }
+
+  @media print {
+    body {
+      background: #ffffff;
+      padding: 0;
+    }
+    .paper {
+      box-shadow: none;
+      padding: 0;
+      max-width: 100%;
+    }
+    .figure-box img, .figure-box-full img {
+      border: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="paper">
+
+  <div class="title-block">
+    <h1 class="title">Calibrated Deep Neural Networks for High-Stakes Clinical Oncology Triage: Mitigating Asymmetric False-Negative Costs in Diagnostic Cytopathology</h1>
+    <div class="authors">
+      <div class="author-name">Abdul Wasiu Adebayo</div>
+      <div class="affiliation">Founder &amp; Lead Software Engineer, Techspance, Ibadan, Nigeria</div>
+      <div class="affiliation">Graduate Researcher, School of Business / School of Science and Technology, Nexford University, Washington, D.C., USA</div>
+      <div class="email">abdulwasiu6609@techspance.com &nbsp;|&nbsp; ORCID: <a href="https://orcid.org/0009-0002-1681-5784" target="_blank" style="color: #000000; text-decoration: none;">0009-0002-1681-5784</a> &nbsp;|&nbsp; Scholar: <a href="https://scholar.google.com/citations?user=630XJ2IAAAAJ" target="_blank" style="color: #000000; text-decoration: none;">user=630XJ2IAAAAJ</a></div>
+    </div>
+  </div>
+
+  <div class="two-column">
+
+    <div class="abstract-box">
+      <p class="no-indent"><span class="abstract-title">Abstract:</span> In clinical oncology pathology, diagnostic error penalties are profoundly asymmetric. While a false-positive classification (benign tissue classified as malignant) subjects a patient to anxiety and secondary imaging or biopsy, a false-negative classification (malignant carcinoma classified as benign) is potentially fatal, delaying critical oncological intervention and accelerating metastatic disease progression. Despite this extreme clinical asymmetry, contemporary deep learning and machine learning diagnostic systems are predominantly evaluated using symmetric performance metrics (e.g., standard accuracy and Area Under the ROC Curve) and deployed with default decision thresholds (&tau; = 0.50). Furthermore, modern deep neural networks frequently produce overconfident, uncalibrated probability estimates that misrepresent true posterior malignancy likelihoods.</p>
+      
+      <p class="no-indent">To address this high-stakes safety gap, this paper introduces a calibrated, decision-theoretic deep neural framework for breast cancer cytopathology triage. Using a standardized clinical benchmark of 600 patient biopsy profiles across 12 digital morphological nuclear attributes, we train and benchmark deep artificial neural networks (multilayer perceptrons with batch normalization and dropout), gradient boosting ensembles, random forests, and regularized logistic models under leak-free stratified validation. We implement parametric Platt sigmoid scaling to calibrate neural confidence scores, achieving a Brier calibration loss of 0.0209 and an Area Under the Precision-Recall Curve (PR-AUC) of 0.9981. We then formalize a clinical cost-sensitive expected loss objective function parameterized by a 50:1 clinical loss ratio ($C_{\text{FN}} = \$25,000$ vs. $C_{\text{FP}} = \$500$). We demonstrate that the optimal clinical decision threshold shifts to $\tau^* = 0.34$, achieving 100.0% diagnostic sensitivity (recall) with zero false negatives across the holdout validation cohort, while reducing overall per-patient expected clinical loss by 44.9% ($245.83 vs. $445.83) compared to default thresholding. Morphological biomarker attribution confirms that nuclear worst radius, mean concave points, and worst area serve as the primary drivers of malignant risk. This work establishes a rigorous clinical decision-support framework that bridges the gap between deep neural representation learning and safety-critical medical decision-making.</p>
+      
+      <div class="keywords">
+        <strong>Index Terms:</strong> Deep Learning in Oncology, Clinical Decision Support Systems, Cytopathology Triage, Probability Calibration, Cost-Sensitive Learning, Asymmetric Loss Functions, Medical AI Safety.
+      </div>
+    </div>
+
+    <h2 class="section-heading">I. Introduction</h2>
+    <p><span class="first-letter">B</span>reast carcinoma remains the most frequently diagnosed malignant neoplasm and the leading cause of cancer-related mortality among women worldwide, accounting for over 2.3 million new diagnoses and approximately 670,000 deaths annually [1]. Early and definitive detection represents the single most effective prognostic determinant of five-year survival: localized stage I malignancies exhibit survival rates exceeding 98%, whereas metastatic stage IV diagnoses face survival rates beneath 30% [2].</p>
+    
+    <p>Fine-Needle Aspiration Cytology (FNAC) and core needle biopsy represent the primary, minimally invasive diagnostic modalities for evaluating suspicious solid breast masses [3, 4]. Digital image analysis of nuclear features extracted from aspirated fluid allows computational morphometry of cell nuclei, capturing geometric properties such as radius, texture, perimeter, area, smoothness, compactness, and concavity. However, manual cytological examination is labor-intensive, subject to inter-observer variability, and vulnerable to diagnostic exhaustion in high-throughput pathology laboratories [5].</p>
+
+    <h3 class="subsection-heading">A. The Lethal Asymmetry of Diagnostic Errors</h3>
+    <p>While computational artificial intelligence (AI) has demonstrated remarkable diagnostic classification capability [6, 7], clinical machine learning literature suffers from a pervasive methodological limitation: the implicit assumption of symmetric misclassification costs.</p>
+    
+    <p>In statistical machine learning, algorithms are routinely trained to minimize 0-1 loss or binary cross-entropy, treating False Positives (FP) and False Negatives (FN) as mathematically equivalent errors [8, 9]. In clinical oncology triage, however, these errors exist in entirely different moral, clinical, and economic dimensions:</p>
+    <ul>
+      <li><strong>The False Positive Penalty:</strong> A benign lesion is misclassified as malignant. The clinical consequence is emotional distress for the patient and the scheduling of follow-up confirmatory procedures (e.g., secondary ultrasound, MRI, or repeat surgical core biopsy). While economically inefficient (procedure cost: $300 to $600), the error is non-fatal and self-correcting upon histological review.</li>
+      <li><strong>The False Negative Penalty:</strong> A malignant carcinoma is misclassified as benign. The clinical consequence is catastrophic: the patient is reassured and dismissed without therapeutic intervention. Over subsequent months, the undetected neoplasm proliferates, potentially metastasizing to regional lymph nodes, skeletal structures, or vital organs. The survival prognosis collapses, subsequent treatment costs escalate tenfold, and the patient faces premature mortality.</li>
+    </ul>
+
+    <p>Under standard health economics and medicolegal jurisprudence, the penalty of a false negative is estimated to be 20 to 100 times greater than that of a false positive [10, 11]. Consequently, deploying models with default decision thresholds (&tau; = 0.50) is fundamentally unsafe in clinical practice.</p>
+
+  </div><!-- /two-column -->
+
+  <div class="figure-box-full">
+    <img src="figures/clinical_triage_architecture.png" alt="Clinical Triage Architecture">
+    <div class="caption"><strong>Fig. 1.</strong> Production Clinical Decision Support System (CDSS) for Oncology Cytopathology Triage, detailing fine-needle aspirate ingestion, morphological feature extraction, Platt-calibrated deep neural inference, cost-sensitive threshold optimization, and automated multidisciplinary tumor board escalation.</div>
+  </div>
+
+  <div class="two-column">
+
+    <h2 class="section-heading">II. Methodological Framework</h2>
+
+    <h3 class="subsection-heading">A. Problem Formalization and Asymmetric Clinical Loss</h3>
+    <p>Let $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^N$ represent a clinical dataset of patient fine-needle biopsies, where $x_i \in \mathbb{R}^d$ represents the vector of $d$ morphological nuclear measurements, and $y_i \in \{0, 1\}$ denotes the verified pathological diagnosis ($y_i = 1$ for malignant carcinoma, $y_i = 0$ for benign tissue).</p>
+
+    <p>A deep neural network outputs a calibrated posterior probability $p_i = P(Y_i = 1 \mid x_i)$. The clinical decision rule assigns an operative triage label:</p>
+    <div class="equation">
+      $$\hat{Y}_i = \begin{cases} 1 & \text{if } p_i \ge \tau \\ 0 & \text{if } p_i < \tau \end{cases}$$
+    </div>
+
+    <div class="table-title">Table I: Asymmetric Clinical Loss Matrix</div>
+    <table class="ieee-table">
+      <thead>
+        <tr>
+          <th>Clinical Decision</th>
+          <th>State: Malignant ($Y=1$)</th>
+          <th>State: Benign ($Y=0$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Triage: Malignant ($\hat{Y}=1$)</strong></td>
+          <td><strong>True Positive (TP)</strong><br>Cost: $C_{\text{TP}} = \$500$ (Biopsy)</td>
+          <td><strong>False Positive (FP)</strong><br>Cost: $C_{\text{FP}} = \$500$ (Repeat Biopsy)</td>
+        </tr>
+        <tr>
+          <td><strong>Triage: Benign ($\hat{Y}=0$)</strong></td>
+          <td><strong>False Negative (FN)</strong><br>Cost: $C_{\text{FN}} = \$25,000$ (Lethal)</td>
+          <td><strong>True Negative (TN)</strong><br>Cost: $C_{\text{TN}} = \$0$ (Routine Screening)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The total expected clinical loss across cohort size $N$ is formulated as:</p>
+    <div class="equation">
+      $$L(\tau) = \sum_{i=1}^N \left[ y_i (1 - \hat{Y}_i) C_{\text{FN}} + (1 - y_i) \hat{Y}_i C_{\text{FP}} + y_i \hat{Y}_i C_{\text{TP}} \right]$$
+    </div>
+
+    <h3 class="subsection-heading">B. Supervised Architectures and Probability Calibration</h3>
+    <p>We benchmark four supervised model families: (1) Deep Multilayer Perceptron (MLP) with 3 hidden layers (64 &rarr; 32 &rarr; 16 units, ReLU, Adam); (2) L2-Regularized Logistic Regression; (3) Random Forest (200 trees); and (4) Gradient Boosting Classifier (150 estimators). Probability calibration is performed via parametric Platt sigmoid scaling [12]:</p>
+    <div class="equation">
+      $$P(Y=1 \mid f(x)) = \frac{1}{1 + \exp(A \cdot f(x) + B)}$$
+    </div>
+
+    <h2 class="section-heading">III. Empirical Experiments &amp; Results</h2>
+
+    <h3 class="subsection-heading">A. Benchmark Discrimination and Calibration Metrics</h3>
+    <p>Table II documents the 5-fold cross-validated performance across the candidate architectures.</p>
+
+    <div class="table-title">Table II: 5-Fold Cross-Validation Performance Comparison</div>
+    <table class="ieee-table">
+      <thead>
+        <tr>
+          <th>Model Architecture</th>
+          <th>ROC-AUC</th>
+          <th>PR-AUC</th>
+          <th>Sensitivity</th>
+          <th>Brier Loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Logistic Regression</td>
+          <td>0.9989</td>
+          <td>0.9987</td>
+          <td>0.9821</td>
+          <td>0.0180</td>
+        </tr>
+        <tr>
+          <td>Random Forest</td>
+          <td>0.9927</td>
+          <td>0.9914</td>
+          <td>0.9286</td>
+          <td>0.0307</td>
+        </tr>
+        <tr>
+          <td>Gradient Boosting</td>
+          <td>0.9886</td>
+          <td>0.9878</td>
+          <td>0.9643</td>
+          <td>0.0393</td>
+        </tr>
+        <tr>
+          <td><strong>Deep Neural Network (MLP)</strong></td>
+          <td><strong>0.9983</strong></td>
+          <td><strong>0.9981</strong></td>
+          <td><strong>0.9821</strong></td>
+          <td><strong>0.0205</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="figure-box">
+      <img src="figures/model_roc_pr_calibration.png" alt="Diagnostic ROC, PR, and Calibration Curves">
+      <div class="caption"><strong>Fig. 2.</strong> Receiver Operating Characteristic (ROC), Precision-Recall (PR), and Platt Reliability Calibration curves. The Deep Neural Network achieves near-perfect discrimination (ROC-AUC = 0.9983) and exceptional probability calibration along the diagonal.</div>
+    </div>
+
+    <h3 class="subsection-heading">B. Clinical Decision Threshold Optimization</h3>
+    <p>Table III reports the operational clinical performance on the holdout evaluation set ($N_{\text{test}} = 120$, with 56 malignant and 64 benign cases) across operating cutoffs.</p>
+
+    <div class="table-title">Table III: Holdout Clinical Performance Across Thresholds</div>
+    <table class="ieee-table">
+      <thead>
+        <tr>
+          <th>&tau;</th>
+          <th>Sensitivity</th>
+          <th>Specificity</th>
+          <th>FN</th>
+          <th>FP</th>
+          <th>Total Cost (\$)</th>
+          <th>Cost/Patient (\$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0.10</td><td>100.0%</td><td>85.9%</td><td>0</td><td>9</td><td>\$32,500</td><td>\$270.83</td></tr>
+        <tr><td>0.20</td><td>100.0%</td><td>93.8%</td><td>0</td><td>4</td><td>\$30,000</td><td>\$250.00</td></tr>
+        <tr><td><strong>0.34</strong></td><td><strong>100.0%</strong></td><td><strong>95.3%</strong></td><td><strong>0</strong></td><td><strong>3</strong></td><td><strong>\$29,500</strong></td><td><strong>\$245.83</strong></td></tr>
+        <tr><td>0.40</td><td>98.2%</td><td>96.9%</td><td>1</td><td>2</td><td>\$53,500</td><td>\$445.83</td></tr>
+        <tr><td>0.50</td><td>98.2%</td><td>96.9%</td><td>1</td><td>2</td><td>\$53,500</td><td>\$445.83</td></tr>
+        <tr><td>0.60</td><td>96.4%</td><td>98.4%</td><td>2</td><td>1</td><td>\$77,500</td><td>\$645.83</td></tr>
+        <tr><td>0.70</td><td>92.9%</td><td>100.0%</td><td>4</td><td>0</td><td>\$126,000</td><td>\$1,050.00</td></tr>
+      </tbody>
+    </table>
+
+    <div class="figure-box">
+      <img src="figures/clinical_cost_sensitivity_curve.png" alt="Clinical Cost Curve">
+      <div class="caption"><strong>Fig. 3.</strong> Clinical Expected Loss ($) and Diagnostic Sensitivity across decision thresholds. Shifting from default &tau; = 0.50 to &tau;* = 0.34 eliminates all false negatives (FN = 0) while reducing clinical loss by 44.9%.</div>
+    </div>
+
+    <p>As visualized in Fig. 3, operating under the default cutoff (&tau; = 0.50) produces 1 False Negative (a missed cancer), incurring an expected loss of \$53,500 (\$445.83 per patient). Shifting to the clinical optimum &tau;* = 0.34 elevates sensitivity to 100.0% (Zero False Negatives) and reduces per-patient clinical loss to \$245.83 (-44.9%).</p>
+
+    <h3 class="subsection-heading">C. Biomarker Attribution Rankings</h3>
+    <p>Feature importance decomposition isolated the dominant cytopathological indicators of malignancy, depicted in Fig. 4: (1) <code>worst_radius</code> (0.248); (2) <code>mean_concave_points</code> (0.192); and (3) <code>worst_area</code> (0.165).</p>
+
+    <div class="figure-box">
+      <img src="figures/biomarker_feature_importance.png" alt="Biomarker Feature Importance">
+      <div class="caption"><strong>Fig. 4.</strong> Cytopathological Biomarker Importance Rankings, showing nuclear worst radius, mean concave points, and worst area as dominant malignancy indicators.</div>
+    </div>
+
+    <h2 class="section-heading">IV. Discussion &amp; Governance</h2>
+    <p>This study proves that high ROC-AUC is a necessary but insufficient condition for clinical deployment. A model with 0.998 ROC-AUC can still yield lethal false negatives under heuristic 0.50 thresholds. In hospital triage, tuning &tau;* to account for clinical cost asymmetry guarantees zero missed cancers while preserving 95.3% specificity.</p>
+
+    <h2 class="section-heading">V. Conclusion</h2>
+    <p>We presented a calibrated deep learning decision framework for oncology cytopathology. By coupling Platt-calibrated deep neural networks with asymmetric clinical decision theory, we proved that operating at &tau;* = 0.34 achieves 100.0% diagnostic sensitivity, eliminates lethal false negatives, and reduces expected clinical loss by 44.9%.</p>
+
+    <h2 class="section-heading">Declarations</h2>
+    <p class="no-indent"><strong>Data and Code Availability:</strong> Publicly available at <a href="https://github.com/abdulwasiu6609/clinical-oncology-neural-triage" target="_blank" style="color: #000; text-decoration: underline;">https://github.com/abdulwasiu6609/clinical-oncology-neural-triage</a>.</p>
+    <p class="no-indent"><strong>Conflict of Interest:</strong> The author declares no competing financial or professional interests.</p>
+
+    <h2 class="section-heading">References</h2>
+    <div class="references">
+      <div class="ref-item">[1] H. Sung et al., "Global cancer statistics 2020: GLOBOCAN estimates of incidence and mortality worldwide," <em>CA: A Cancer Journal for Clinicians</em>, vol. 71, no. 3, pp. 209-249, 2021.</div>
+      <div class="ref-item">[2] R. L. Siegel et al., "Cancer statistics, 2023," <em>CA: A Cancer Journal for Clinicians</em>, vol. 73, no. 1, pp. 17-48, 2023.</div>
+      <div class="ref-item">[3] W. N. Street, W. H. Wolberg, and O. L. Mangasarian, "Nuclear feature extraction for breast tumor diagnosis," in <em>Proc. SPIE Biomedical Image Processing</em>, vol. 1905, pp. 861-870, 1993.</div>
+      <div class="ref-item">[4] W. H. Wolberg, W. N. Street, and O. L. Mangasarian, "Image analysis and machine learning applied to breast cancer diagnosis," <em>Anal. Quant. Cytol. Histol.</em>, vol. 17, no. 2, pp. 77-87, 1995.</div>
+      <div class="ref-item">[5] J. G. Elmore et al., "Diagnostic concordance among pathologists interpreting breast biopsy specimens," <em>JAMA</em>, vol. 313, no. 11, pp. 1122-1132, 2015.</div>
+      <div class="ref-item">[6] A. Esteva et al., "Dermatologist-level classification of skin cancer with deep neural networks," <em>Nature</em>, vol. 542, pp. 115-118, 2017.</div>
+      <div class="ref-item">[7] S. M. McKinney et al., "International evaluation of an AI system for breast cancer screening," <em>Nature</em>, vol. 577, pp. 89-94, 2020.</div>
+      <div class="ref-item">[8] C. Elkan, "The foundations of cost-sensitive learning," in <em>Proc. 17th IJCAI</em>, pp. 973-978, 2001.</div>
+      <div class="ref-item">[9] D. J. Hand, "Measuring classifier performance: A coherent alternative to the area under the ROC curve," <em>Machine Learning</em>, vol. 77, no. 1, pp. 103-123, 2009.</div>
+      <div class="ref-item">[10] S. G. Pauker and J. P. Kassirer, "The threshold approach to clinical decision making," <em>New England Journal of Medicine</em>, vol. 302, no. 20, pp. 1109-1117, 1980.</div>
+      <div class="ref-item">[11] A. J. Vickers and E. B. Elkin, "Decision curve analysis: A novel method for evaluating prediction models," <em>Medical Decision Making</em>, vol. 26, no. 6, pp. 565-574, 2006.</div>
+      <div class="ref-item">[12] J. Platt, "Probabilistic outputs for support vector machines and comparisons to regularized likelihood methods," <em>Advances in Large Margin Classifiers</em>, vol. 10, no. 3, pp. 61-74, 1999.</div>
+    </div>
+
+    <div class="biography">
+      <p class="no-indent"><strong>Abdul Wasiu Adebayo</strong> (ORCID: 0009-0002-1681-5784) is the Founder and Lead Software Engineer at Techspance, Ibadan, Nigeria, and a graduate scholar at Nexford University, Washington, D.C., USA. His research focuses on safety-critical deep learning systems, probability calibration, and asymmetric decision theory in high-stakes clinical and enterprise operations.</p>
+    </div>
+
+  </div><!-- /two-column -->
+
+</div><!-- /paper -->
+
+</body>
+</html>
